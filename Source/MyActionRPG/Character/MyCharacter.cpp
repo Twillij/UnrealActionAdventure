@@ -1,4 +1,5 @@
 #include "MyCharacter.h"
+#include "Character/Attributes/CharacterAttributeSet.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"

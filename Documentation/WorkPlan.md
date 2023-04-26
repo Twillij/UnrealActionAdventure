@@ -36,7 +36,7 @@ Add the dependency to the build.cs.
 Ensure the module can be accessed for development.
 
 ### Status
-Started 24 April 2023
+Completed 26 April 2023
 
 
 # Task 004: Basic character attribute set
@@ -44,9 +44,10 @@ Started 24 April 2023
 ### Description
 Create a basic attribute set with two values: HP and MP.
 Implement this on the base character class.
+- This also means it needs to be set with an Ability System Component.
 
 ### Status
-Not yet started
+Completed 26 April 2023
 
 
 ## Task 005: Basic save game

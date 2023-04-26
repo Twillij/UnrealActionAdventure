@@ -20,5 +20,7 @@ public class MyActionRPG : ModuleRules
 			"HeadMountedDisplay",
 			"InputCore"
 		});
+
+		PublicIncludePaths.AddRange(new string[]{"MyActionRPG"});
 	}
 }
