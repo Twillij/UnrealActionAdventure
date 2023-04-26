@@ -1,6 +1,6 @@
 # Work Plan
 The work plan currently contains a list of all the tasks that will be worked on for this project in chronogically descending order.
-As tasks get finished, more tasks will appear in the list.
+As tasks get finished, new tasks will appear in the list.
 
 
 ## Task 001: Basic main menu
@@ -60,4 +60,4 @@ Save game contains basic player info:
 - Last attribute values, like HP and MP
 
 ### Status
-Not yet started
+Started 26 April 2023
