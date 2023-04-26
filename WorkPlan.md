@@ -43,7 +43,7 @@ Completed 26 April 2023
 
 ### Description
 Create a basic attribute set with two values: HP and MP.  
-Implement this on the base character class.
+Implement this on the base character class.  
 This also means it needs to be set up with an Ability System Component.
 
 ### Status
