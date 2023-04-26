@@ -12,7 +12,7 @@ Contains Start and Quit option.
 - Quit closes the app.
 
 ### Status
-Completed 24 April 2023  
+Completed 24 April 2023
 
 
 ## Task 002: Basic test level
@@ -25,7 +25,7 @@ It needs to contain:
 - Basic lighting and skybox
 
 ### Status
-Completed 24 April 2023  
+Completed 24 April 2023
 
 
 ## Task 003: Set up Gameplay Ability System
@@ -36,7 +36,7 @@ Add the dependency to the build.cs.
 Ensure the module can be accessed for development.  
 
 ### Status
-Completed 26 April 2023  
+Completed 26 April 2023
 
 
 ## Task 004: Basic character attribute set
@@ -44,10 +44,10 @@ Completed 26 April 2023
 ### Description
 Create a basic attribute set with two values: HP and MP.  
 Implement this on the base character class.
-- This also means it needs to be set with an Ability System Component.
+This also means it needs to be set up with an Ability System Component.
 
 ### Status
-Completed 26 April 2023  
+Completed 26 April 2023
 
 
 ## Task 005: Basic save game
@@ -60,4 +60,4 @@ Save game contains basic player info:
 - Last attribute values, like HP and MP
 
 ### Status
-Started 26 April 2023  
+Started 26 April 2023
