@@ -14,15 +14,15 @@ class UInputMappingContext;
 class UInputAction;
 
 UCLASS(config=Game)
-class AMyCharacter : public ACharacter, public IAbilitySystemInterface
+class MYACTIONRPG_API AMyCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
 protected:
-	UPROPERTY(BlueprintReadOnly, Category = "Abilities")
+	UPROPERTY(BlueprintReadOnly, Category = "Ability System")
 	UAbilitySystemComponent* AbilitySystemComponent;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Attributes")
+	UPROPERTY(BlueprintReadOnly, Category = "Ability System")
 	UCharacterAttributeSet* AttributeSet;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))

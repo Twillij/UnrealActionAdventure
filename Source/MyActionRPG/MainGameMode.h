@@ -4,8 +4,8 @@
 #include "GameFramework/GameModeBase.h"
 #include "MainGameMode.generated.h"
 
-UCLASS(minimalapi)
-class AMainGameMode : public AGameModeBase
+UCLASS()
+class MYACTIONRPG_API AMainGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 };
