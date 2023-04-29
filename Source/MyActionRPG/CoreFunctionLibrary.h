@@ -16,5 +16,5 @@ public:
 	* Tip: In the above case, use a nearby actor that is definitely streamed in instead.
 	*/
 	UFUNCTION(BlueprintPure)
-	static FName GetStreamingLevelNameFromActor(AActor* Actor);
+	static FName GetStreamingLevelNameFromActor(const AActor* Actor);
 };

@@ -8,4 +8,7 @@ UCLASS()
 class MYACTIONRPG_API AMainGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
+
+public:
+	
 };

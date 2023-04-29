@@ -1,7 +1,7 @@
 #include "CoreFunctionLibrary.h"
 #include "Kismet/GameplayStatics.h"
 
-FName UCoreFunctionLibrary::GetStreamingLevelNameFromActor(AActor* Actor)
+FName UCoreFunctionLibrary::GetStreamingLevelNameFromActor(const AActor* Actor)
 {
 	if (Actor)
 	{

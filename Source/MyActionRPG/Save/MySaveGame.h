@@ -12,8 +12,8 @@ class MYACTIONRPG_API UMySaveGame : public USaveGame
 	
 public:
 	UPROPERTY(BlueprintReadWrite)
-	FCharacterAttributeInfo PlayerAttributeInfo;
-
+	FActorLocationInfo PlayerLocationInfo;
+	
 	UPROPERTY(BlueprintReadWrite)
-	FCharacterLocationInfo PlayerLocationInfo;
+	FCharacterAttributeInfo PlayerAttributeInfo;
 };
