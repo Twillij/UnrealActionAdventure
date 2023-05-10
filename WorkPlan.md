@@ -70,7 +70,7 @@ Create a basic functionality for loading the saved game.
 By completion, we should be able to spawn a character with the same params as the previous session.
 
 ### Status
-Started 01 May 2023
+Completed 10 May 2023
 
 
 ## Task 007: Basic pause menu

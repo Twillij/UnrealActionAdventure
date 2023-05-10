@@ -13,7 +13,20 @@ class MYACTIONRPG_API USaveSubsystem : public UGameInstanceSubsystem
 {
 	GENERATED_BODY()
 
+protected:
+	UPROPERTY(BlueprintReadOnly)
+	UMySaveGame* LastSavedGame;
+
+	UPROPERTY(BlueprintReadOnly)
+	UMySaveGame* LastLoadedGame;
+
 public:
-	
-	void SaveGameProgress(UObject* WorldContextObject);
+	UMySaveGame* GetLastSavedGame() { return LastSavedGame; }
+	UMySaveGame* GetLastLoadedGame() { return LastLoadedGame; }
+
+	UFUNCTION(BlueprintCallable, meta = (WorldContext = "WorldContextObject"))
+	void SaveGameProgress(UObject* WorldContextObject, UMySaveGame* SaveGameObject = nullptr, FString SaveSlotName = "Default", int32 UserIndex = 0);
+
+	UFUNCTION(BlueprintCallable)
+	UMySaveGame* LoadGameProgress(FString SaveSlotName = "Default", int32 UserIndex = 0);
 };
