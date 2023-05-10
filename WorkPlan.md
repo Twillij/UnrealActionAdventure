@@ -86,7 +86,7 @@ It should show these basic options:
 And also have these basic functionalities implemented.
 
 ### Status
-Not yet started
+Completed 10 May 2023
 
 
 ## Task 008: TBD
