@@ -10,5 +10,12 @@ class MYACTIONRPG_API AMainGameMode : public AGameModeBase
 	GENERATED_BODY()
 
 public:
-	
+	UFUNCTION(BlueprintCallable)
+	void SaveGameProgress();
+
+	UFUNCTION(BlueprintCallable)
+	void LoadGameProgress();
+
+protected:
+	virtual void BeginPlay() override;
 };

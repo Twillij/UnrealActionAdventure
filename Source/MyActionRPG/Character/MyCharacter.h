@@ -18,6 +18,13 @@ class MYACTIONRPG_API AMyCharacter : public ACharacter, public IAbilitySystemInt
 {
 	GENERATED_BODY()
 
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FName Name;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FText DisplayName;
+	
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Ability System")
 	UAbilitySystemComponent* AbilitySystemComponent;

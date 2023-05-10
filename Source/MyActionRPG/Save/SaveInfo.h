@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "SaveInfo.generated.h"
 
+class AMyCharacter;
 class UCharacterAttributeSet;
 
 USTRUCT(BlueprintType)
@@ -42,4 +43,22 @@ struct FCharacterAttributeInfo
 
 	FCharacterAttributeInfo(){}
 	FCharacterAttributeInfo(const UCharacterAttributeSet* CharacterAttributeSet);
+};
+
+USTRUCT(BlueprintType)
+struct FCharacterMasterInfo
+{
+	GENERATED_BODY();
+
+	UPROPERTY(BlueprintReadWrite)
+	FName Name = NAME_None;
+
+	UPROPERTY(BlueprintReadWrite)
+	FActorLocationInfo LocationInfo = FActorLocationInfo();
+
+	UPROPERTY(BlueprintReadWrite)
+	FCharacterAttributeInfo AttributeInfo = FCharacterAttributeInfo();
+
+	FCharacterMasterInfo(){}
+	FCharacterMasterInfo(const AMyCharacter* Character);
 };

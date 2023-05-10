@@ -60,4 +60,39 @@ Save game contains basic player info:
 - Last attribute values, like HP and MP
 
 ### Status
-Started 26 April 2023
+Completed 01 May 2023
+
+
+## Task 006: Basic load game
+
+### Description
+Create a basic functionality for loading the saved game.
+By completion, we should be able to spawn a character with the same params as the previous session.
+
+### Status
+Started 01 May 2023
+
+
+## Task 007: Basic pause menu
+
+### Description
+Create a basic pause menu that pauses the game.  
+It should show these basic options:
+- Restart game
+- Return to title
+- Quit game
+- Open dev menu
+
+And also have these basic functionalities implemented.
+
+### Status
+Not yet started
+
+
+## Task 008: TBD
+
+### Description
+TBD
+
+### Status
+Not yet started

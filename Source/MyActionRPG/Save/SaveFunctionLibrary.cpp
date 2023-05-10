@@ -10,3 +10,8 @@ FCharacterAttributeInfo USaveFunctionLibrary::CreateCharacterAttributeInfo(const
 {
 	return FCharacterAttributeInfo(CharacterAttributeSet);
 }
+
+FCharacterMasterInfo USaveFunctionLibrary::CreateCharacterMasterInfo(const AMyCharacter* Character)
+{
+	return FCharacterMasterInfo(Character);
+}
