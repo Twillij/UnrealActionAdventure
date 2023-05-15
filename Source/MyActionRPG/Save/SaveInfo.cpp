@@ -1,7 +1,7 @@
 #include "SaveInfo.h"
 #include "CoreFunctionLibrary.h"
 #include "Character/MyCharacter.h"
-#include "Character/Attributes/CharacterAttributeSet.h"
+#include "Gameplay/Attributes/CharacterAttributeSet.h"
 #include "Kismet/GameplayStatics.h"
 
 FActorLocationInfo::FActorLocationInfo(const AActor* Actor)

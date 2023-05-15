@@ -18,7 +18,7 @@ protected:
 	UMySaveGame* LastSavedGame;
 
 	UPROPERTY(BlueprintReadOnly)
-	UMySaveGame* LastLoadedGame;
+	UMySaveGame* LastLoadedGame;	
 
 public:
 	UMySaveGame* GetLastSavedGame() { return LastSavedGame; }

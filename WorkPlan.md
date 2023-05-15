@@ -89,10 +89,39 @@ And also have these basic functionalities implemented.
 Completed 10 May 2023
 
 
-## Task 008: TBD
+## Task 008: Basic initializer for character attributes
 
 ### Description
-TBD
+Set up a basic initialization process for character attributes.  
+This should involve creating an initializer gameplay effect and storing it for the character.
+
+### Status
+Completed 12 May 2023
+
+
+## Task 009: Basic save interface
+
+### Description
+Set up a basic save interface class to implement to different objects.  
+Each object should be able to implement their own saving and loading behaviour from the interface.
+
+### Status
+Started 15 May 2023
+
+
+## Task 010: Loading of character attributes
+
+### Description
+Enable the loading of character attributes when entering the game or loading a new map.
+
+### Status
+Not yet started
+
+
+## Task 011: Change MyCharacter class name to RPGCharacter
+
+### Description
+Change the class name and make sure all the references are updated.
 
 ### Status
 Not yet started

@@ -6,12 +6,12 @@
 #include "InputActionValue.h"
 #include "MyCharacter.generated.h"
 
-class UAbilitySystemComponent;
 class UCharacterAttributeSet;
 class UCameraComponent;
-class USpringArmComponent;
+class UGameplayEffect;
 class UInputMappingContext;
 class UInputAction;
+class USpringArmComponent;
 
 UCLASS(config=Game)
 class MYACTIONRPG_API AMyCharacter : public ACharacter, public IAbilitySystemInterface
@@ -19,11 +19,14 @@ class MYACTIONRPG_API AMyCharacter : public ACharacter, public IAbilitySystemInt
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Information")
 	FName Name;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Information")
 	FText DisplayName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Information")
+	TSubclassOf<UGameplayEffect> DefaultAttributeInitializerEffect;
 	
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Ability System")
@@ -58,13 +61,13 @@ public:
 	USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
+	UFUNCTION(BlueprintCallable)
+	void InitializeAttributes();
+
 protected:
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual void BeginPlay() override;
-
-	/** Called for movement input */
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	
 	void Move(const FInputActionValue& Value);
-
-	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
 };

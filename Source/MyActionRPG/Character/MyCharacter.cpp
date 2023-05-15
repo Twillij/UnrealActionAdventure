@@ -1,10 +1,11 @@
 #include "MyCharacter.h"
-#include "Character/Attributes/CharacterAttributeSet.h"
+#include "Gameplay/Attributes/CharacterAttributeSet.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "GameplayEffect.h"
 #include "InputMappingContext.h"
 #include "Camera/CameraComponent.h"
-#include "Components/CapsuleComponent.h"
+#include "Components/CapsuleComponent.h"	
 #include "Components/InputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
@@ -47,12 +48,23 @@ AMyCharacter::AMyCharacter()
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 }
 
+void AMyCharacter::InitializeAttributes()
+{
+	UGameplayEffect* AttributeInitializerEffect = NewObject<UGameplayEffect>(this, DefaultAttributeInitializerEffect);
+
+	if (!IsValid(AttributeInitializerEffect))
+		return;
+	
+	AbilitySystemComponent->ApplyGameplayEffectToSelf(AttributeInitializerEffect, 1, FGameplayEffectContextHandle());
+}
+
 void AMyCharacter::BeginPlay()
 {
-	// Call the base class  
+	InitializeAttributes();
+	
 	Super::BeginPlay();
 
-	//Add Input Mapping Context
+	// Add Input Mapping Context
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
@@ -67,14 +79,14 @@ void AMyCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputC
 	// Set up action bindings
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent)) {
 		
-		//Jumping
+		// Jumping
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ACharacter::Jump);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 
-		//Moving
+		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AMyCharacter::Move);
 
-		//Looking
+		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AMyCharacter::Look);
 
 	}
