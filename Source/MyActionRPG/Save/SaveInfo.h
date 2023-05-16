@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "SaveInfo.generated.h"
 
-class AMyCharacter;
+class ARPGCharacter;
 class UCharacterAttributeSet;
 
 USTRUCT(BlueprintType)
@@ -60,5 +60,5 @@ struct FCharacterMasterInfo
 	FCharacterAttributeInfo AttributeInfo = FCharacterAttributeInfo();
 
 	FCharacterMasterInfo(){}
-	FCharacterMasterInfo(const AMyCharacter* Character);
+	FCharacterMasterInfo(const ARPGCharacter* Character);
 };

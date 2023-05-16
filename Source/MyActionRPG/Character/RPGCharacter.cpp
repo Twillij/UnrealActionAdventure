@@ -1,4 +1,4 @@
-#include "MyCharacter.h"
+#include "RPGCharacter.h"
 #include "Gameplay/Attributes/CharacterAttributeSet.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
@@ -11,7 +11,7 @@
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
 
-AMyCharacter::AMyCharacter()
+ARPGCharacter::ARPGCharacter()
 {
 	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>("AbilitySystemComponent");
 	AttributeSet = CreateDefaultSubobject<UCharacterAttributeSet>("CharacterAttributeSet");
@@ -48,7 +48,7 @@ AMyCharacter::AMyCharacter()
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 }
 
-void AMyCharacter::InitializeAttributes()
+void ARPGCharacter::InitializeAttributes()
 {
 	UGameplayEffect* AttributeInitializerEffect = NewObject<UGameplayEffect>(this, DefaultAttributeInitializerEffect);
 
@@ -58,7 +58,7 @@ void AMyCharacter::InitializeAttributes()
 	AbilitySystemComponent->ApplyGameplayEffectToSelf(AttributeInitializerEffect, 1, FGameplayEffectContextHandle());
 }
 
-void AMyCharacter::BeginPlay()
+void ARPGCharacter::BeginPlay()
 {
 	InitializeAttributes();
 	
@@ -74,7 +74,7 @@ void AMyCharacter::BeginPlay()
 	}
 }
 
-void AMyCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
+void ARPGCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
 	// Set up action bindings
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent)) {
@@ -84,15 +84,15 @@ void AMyCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputC
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 
 		// Moving
-		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AMyCharacter::Move);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ARPGCharacter::Move);
 
 		// Looking
-		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AMyCharacter::Look);
+		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ARPGCharacter::Look);
 
 	}
 }
 
-void AMyCharacter::Move(const FInputActionValue& Value)
+void ARPGCharacter::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D
 	FVector2D MovementVector = Value.Get<FVector2D>();
@@ -115,7 +115,7 @@ void AMyCharacter::Move(const FInputActionValue& Value)
 	}
 }
 
-void AMyCharacter::Look(const FInputActionValue& Value)
+void ARPGCharacter::Look(const FInputActionValue& Value)
 {
 	// input is a Vector2D
 	FVector2D LookAxisVector = Value.Get<FVector2D>();

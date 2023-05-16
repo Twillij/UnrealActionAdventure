@@ -1,5 +1,5 @@
 #include "MainGameMode.h"
-#include "Character/MyCharacter.h"
+#include "Character/RPGCharacter.h"
 #include "Save/MySaveGame.h"
 #include "Save/SaveSubsystem.h"
 #include "Kismet/GameplayStatics.h"
@@ -8,7 +8,7 @@
 void AMainGameMode::SaveGameProgress()
 {
 	UMySaveGame* SaveGameObject = Cast<UMySaveGame>(UGameplayStatics::CreateSaveGameObject(UMySaveGame::StaticClass()));
-	AMyCharacter* PlayerCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(this, 0));
+	ARPGCharacter* PlayerCharacter = Cast<ARPGCharacter>(UGameplayStatics::GetPlayerCharacter(this, 0));
 	
 	if (!PlayerCharacter)
 	{

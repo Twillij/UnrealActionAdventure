@@ -5,7 +5,7 @@
 #include "SaveInfo.h"
 #include "SaveFunctionLibrary.generated.h"
 
-class AMyCharacter;
+class ARPGCharacter;
 class UCharacterAttributeSet;
 
 UCLASS()
@@ -21,5 +21,5 @@ public:
 	static FCharacterAttributeInfo CreateCharacterAttributeInfo(const UCharacterAttributeSet* CharacterAttributeSet);
 
 	UFUNCTION(BlueprintCallable, Category = "Save|Info")
-	static FCharacterMasterInfo CreateCharacterMasterInfo(const AMyCharacter* Character);
+	static FCharacterMasterInfo CreateCharacterMasterInfo(const ARPGCharacter* Character);
 };

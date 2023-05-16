@@ -116,12 +116,3 @@ Enable the loading of character attributes when entering the game or loading a n
 
 ### Status
 Not yet started
-
-
-## Task 011: Change MyCharacter class name to RPGCharacter
-
-### Description
-Change the class name and make sure all the references are updated.
-
-### Status
-Not yet started

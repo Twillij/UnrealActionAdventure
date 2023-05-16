@@ -11,7 +11,7 @@ FCharacterAttributeInfo USaveFunctionLibrary::CreateCharacterAttributeInfo(const
 	return FCharacterAttributeInfo(CharacterAttributeSet);
 }
 
-FCharacterMasterInfo USaveFunctionLibrary::CreateCharacterMasterInfo(const AMyCharacter* Character)
+FCharacterMasterInfo USaveFunctionLibrary::CreateCharacterMasterInfo(const ARPGCharacter* Character)
 {
 	return FCharacterMasterInfo(Character);
 }
