@@ -1,6 +1,7 @@
 # IDE user specific files
 .vs/
 .idea/
+.vsconfig
 
 # Compiled Object files
 *.slo
