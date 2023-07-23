@@ -10,7 +10,7 @@ class USaveInterface : public UInterface
 	GENERATED_BODY()
 };
 
-class MYACTIONRPG_API ISaveInterface
+class UNREALACTIONRPG_API ISaveInterface
 {
 	GENERATED_BODY()
 

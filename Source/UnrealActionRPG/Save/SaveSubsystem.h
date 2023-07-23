@@ -9,7 +9,7 @@ class USaveGame;
 DECLARE_LOG_CATEGORY_EXTERN(RPGSave, Log, All);
 
 UCLASS()
-class MYACTIONRPG_API USaveSubsystem : public UGameInstanceSubsystem
+class UNREALACTIONRPG_API USaveSubsystem : public UGameInstanceSubsystem
 {
 	GENERATED_BODY()
 

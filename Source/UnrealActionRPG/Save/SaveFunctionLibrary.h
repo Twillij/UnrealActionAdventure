@@ -9,7 +9,7 @@ class ARPGCharacter;
 class UCharacterAttributeSet;
 
 UCLASS()
-class MYACTIONRPG_API USaveFunctionLibrary : public UBlueprintFunctionLibrary
+class UNREALACTIONRPG_API USaveFunctionLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 	

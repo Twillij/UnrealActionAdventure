@@ -3,13 +3,13 @@
 using UnrealBuildTool;
 using System.Collections.Generic;
 
-public class MyActionRPGEditorTarget : TargetRules
+public class UnrealActionRPGEditorTarget : TargetRules
 {
-	public MyActionRPGEditorTarget(TargetInfo Target) : base(Target)
+	public UnrealActionRPGEditorTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Editor;
 		DefaultBuildSettings = BuildSettingsVersion.V2;
 		IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_1;
-		ExtraModuleNames.Add("MyActionRPG");
+		ExtraModuleNames.Add("UnrealActionRPG");
 	}
 }

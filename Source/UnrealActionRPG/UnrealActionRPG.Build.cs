@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class MyActionRPG : ModuleRules
+public class UnrealActionRPG : ModuleRules
 {
-	public MyActionRPG(ReadOnlyTargetRules Target) : base(Target)
+	public UnrealActionRPG(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
@@ -21,6 +21,6 @@ public class MyActionRPG : ModuleRules
 			"InputCore"
 		});
 
-		PublicIncludePaths.AddRange(new string[]{"MyActionRPG"});
+		PublicIncludePaths.AddRange(new string[]{"UnrealActionRPG"});
 	}
 }

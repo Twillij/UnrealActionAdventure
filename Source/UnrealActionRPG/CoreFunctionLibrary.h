@@ -5,7 +5,7 @@
 #include "CoreFunctionLibrary.generated.h"
 
 UCLASS()
-class MYACTIONRPG_API UCoreFunctionLibrary : public UBlueprintFunctionLibrary
+class UNREALACTIONRPG_API UCoreFunctionLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 	

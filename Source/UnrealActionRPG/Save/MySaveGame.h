@@ -6,7 +6,7 @@
 #include "MySaveGame.generated.h"
 
 UCLASS()
-class MYACTIONRPG_API UMySaveGame : public USaveGame
+class UNREALACTIONRPG_API UMySaveGame : public USaveGame
 {
 	GENERATED_BODY()
 	

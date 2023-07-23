@@ -14,7 +14,7 @@ class UInputAction;
 class USpringArmComponent;
 
 UCLASS(config=Game, DisplayName = "RPG Character")
-class MYACTIONRPG_API ARPGCharacter : public ACharacter, public IAbilitySystemInterface
+class UNREALACTIONRPG_API ARPGCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
