@@ -1,6 +1,6 @@
 #include "SaveInfo.h"
 #include "CoreFunctionLibrary.h"
-#include "Character/RPGCharacter.h"
+#include "Character/CharacterBase.h"
 #include "Gameplay/Attributes/CharacterAttributeSet.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -25,7 +25,7 @@ FCharacterAttributeInfo::FCharacterAttributeInfo(const UCharacterAttributeSet* C
 	MaxMana = CharacterAttributeSet->GetBaseMaxMana();
 }
 
-FCharacterMasterInfo::FCharacterMasterInfo(const ARPGCharacter* Character)
+FCharacterMasterInfo::FCharacterMasterInfo(const ACharacterBase* Character)
 {
 	if (!Character)
 		return;

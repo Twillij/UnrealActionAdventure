@@ -1,13 +1,13 @@
 #include "SaveSubsystem.h"
 #include "MySaveGame.h"
-#include "Character/RPGCharacter.h"
+#include "Character/CharacterBase.h"
 #include "Kismet/GameplayStatics.h"
 
 DEFINE_LOG_CATEGORY(RPGSave);
 
 void USaveSubsystem::SaveGameProgress(UObject* WorldContextObject, UMySaveGame* SaveGameObject, FString SaveSlotName, int32 UserIndex)
 {
-	ARPGCharacter* PlayerCharacter = Cast<ARPGCharacter>(UGameplayStatics::GetPlayerCharacter(WorldContextObject, UserIndex));
+	ACharacterBase* PlayerCharacter = Cast<ACharacterBase>(UGameplayStatics::GetPlayerCharacter(WorldContextObject, UserIndex));
 
 	if (!SaveGameObject)
 	{

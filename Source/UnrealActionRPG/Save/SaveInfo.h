@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "SaveInfo.generated.h"
 
-class ARPGCharacter;
+class ACharacterBase;
 class UCharacterAttributeSet;
 
 USTRUCT(BlueprintType)
@@ -18,7 +18,7 @@ struct FActorLocationInfo
 	FName StreamingLevelName = NAME_None;
 
 	UPROPERTY(BlueprintReadWrite)
-	FVector WorldLocation = FVector();
+	FVector WorldLocation = FVector(0);
 
 	FActorLocationInfo(){}
 	FActorLocationInfo(const AActor* Actor);
@@ -60,5 +60,5 @@ struct FCharacterMasterInfo
 	FCharacterAttributeInfo AttributeInfo = FCharacterAttributeInfo();
 
 	FCharacterMasterInfo(){}
-	FCharacterMasterInfo(const ARPGCharacter* Character);
+	FCharacterMasterInfo(const ACharacterBase* Character);
 };

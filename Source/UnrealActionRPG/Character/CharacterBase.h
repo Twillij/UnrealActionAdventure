@@ -4,7 +4,7 @@
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
 #include "InputActionValue.h"
-#include "RPGCharacter.generated.h"
+#include "CharacterBase.generated.h"
 
 class UCharacterAttributeSet;
 class UCameraComponent;
@@ -13,8 +13,8 @@ class UInputMappingContext;
 class UInputAction;
 class USpringArmComponent;
 
-UCLASS(config=Game, DisplayName = "RPG Character")
-class UNREALACTIONRPG_API ARPGCharacter : public ACharacter, public IAbilitySystemInterface
+UCLASS(config=Game, DisplayName="RPG Character")
+class UNREALACTIONRPG_API ACharacterBase : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -54,7 +54,7 @@ protected:
 	UInputAction* LookAction;
 
 public:
-	ARPGCharacter();
+	ACharacterBase();
 
 	UAbilitySystemComponent* GetAbilitySystemComponent() const override { return AbilitySystemComponent; }
 	UCharacterAttributeSet* GetAttributeSet() const { return AttributeSet; }
