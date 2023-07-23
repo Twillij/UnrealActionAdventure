@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
-#include "SaveInfo.h"
+#include "SaveStructs.h"
 #include "SaveFunctionLibrary.generated.h"
 
 class ACharacterBase;

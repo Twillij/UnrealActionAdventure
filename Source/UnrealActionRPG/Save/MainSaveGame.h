@@ -2,8 +2,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
-#include "SaveInfo.h"
-#include "MySaveGame.generated.h"
+#include "SaveStructs.h"
+#include "MainSaveGame.generated.h"
 
 UCLASS()
 class UNREALACTIONRPG_API UMySaveGame : public USaveGame

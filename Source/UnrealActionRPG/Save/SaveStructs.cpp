@@ -1,4 +1,4 @@
-#include "SaveInfo.h"
+#include "SaveStructs.h"
 #include "CoreFunctionLibrary.h"
 #include "Character/CharacterBase.h"
 #include "Gameplay/Attributes/CharacterAttributeSet.h"

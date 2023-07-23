@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "SaveInfo.generated.h"
+#include "SaveStructs.generated.h"
 
 class ACharacterBase;
 class UCharacterAttributeSet;
