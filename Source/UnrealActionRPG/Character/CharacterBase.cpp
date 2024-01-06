@@ -13,9 +13,6 @@
 
 ACharacterBase::ACharacterBase()
 {
-	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>("AbilitySystemComponent");
-	AttributeSet = CreateDefaultSubobject<UCharacterAttributeSet>("CharacterAttributeSet");
-	
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 		
@@ -48,23 +45,12 @@ ACharacterBase::ACharacterBase()
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 }
 
-void ACharacterBase::InitializeAttributes()
-{
-	if (!IsValid(DefaultAttributeInitializerEffect))
-		return;
-	
-	const UGameplayEffect* AttributeInitializerEffect = NewObject<UGameplayEffect>(this, DefaultAttributeInitializerEffect);
-	AbilitySystemComponent->ApplyGameplayEffectToSelf(AttributeInitializerEffect, 1, FGameplayEffectContextHandle());
-}
-
 void ACharacterBase::BeginPlay()
 {
-	InitializeAttributes();
-	
 	Super::BeginPlay();
 
 	// Add Input Mapping Context
-	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
+	if (const APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
@@ -87,14 +73,13 @@ void ACharacterBase::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ACharacterBase::Look);
-
 	}
 }
 
 void ACharacterBase::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D
-	FVector2D MovementVector = Value.Get<FVector2D>();
+	const FVector2D MovementVector = Value.Get<FVector2D>();
 
 	if (Controller != nullptr)
 	{
@@ -117,7 +102,7 @@ void ACharacterBase::Move(const FInputActionValue& Value)
 void ACharacterBase::Look(const FInputActionValue& Value)
 {
 	// input is a Vector2D
-	FVector2D LookAxisVector = Value.Get<FVector2D>();
+	const FVector2D LookAxisVector = Value.Get<FVector2D>();
 
 	if (Controller != nullptr)
 	{

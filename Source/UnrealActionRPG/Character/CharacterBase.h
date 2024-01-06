@@ -6,15 +6,13 @@
 #include "InputActionValue.h"
 #include "CharacterBase.generated.h"
 
-class UCharacterAttributeSet;
 class UCameraComponent;
-class UGameplayEffect;
 class UInputMappingContext;
 class UInputAction;
 class USpringArmComponent;
 
 UCLASS(config=Game, DisplayName="RPG Character")
-class UNREALACTIONRPG_API ACharacterBase : public ACharacter, public IAbilitySystemInterface
+class UNREALACTIONRPG_API ACharacterBase : public ACharacter
 {
 	GENERATED_BODY()
 
@@ -25,22 +23,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Information")
 	FText DisplayName;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Information")
-	TSubclassOf<UGameplayEffect> DefaultAttributeInitializerEffect;
-	
-protected:
-	UPROPERTY(BlueprintReadOnly, Category = "Ability System")
-	UAbilitySystemComponent* AbilitySystemComponent;
-
-	UPROPERTY(BlueprintReadOnly, Category = "Ability System")
-	UCharacterAttributeSet* AttributeSet;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(BlueprintReadWrite, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	USpringArmComponent* CameraBoom;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(BlueprintReadWrite, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
 	
+protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputMappingContext* DefaultMappingContext;
 
@@ -55,14 +44,6 @@ protected:
 
 public:
 	ACharacterBase();
-
-	UAbilitySystemComponent* GetAbilitySystemComponent() const override { return AbilitySystemComponent; }
-	UCharacterAttributeSet* GetAttributeSet() const { return AttributeSet; }
-	USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
-	UCameraComponent* GetFollowCamera() const { return FollowCamera; }
-
-	UFUNCTION(BlueprintCallable)
-	void InitializeAttributes();
 
 protected:
 	virtual void BeginPlay() override;

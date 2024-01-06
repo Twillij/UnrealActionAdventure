@@ -32,5 +32,4 @@ FCharacterMasterInfo::FCharacterMasterInfo(const ACharacterBase* Character)
 		
 	Name = Character->Name;
 	LocationInfo = FActorLocationInfo(Character);
-	AttributeInfo = FCharacterAttributeInfo(Character->GetAttributeSet());
 }
