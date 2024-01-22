@@ -21,6 +21,9 @@ public class UnrealActionRPG : ModuleRules
 			"InputCore"
 		});
 
-		PublicIncludePaths.AddRange(new string[]{"UnrealActionRPG"});
+		PublicIncludePaths.AddRange(new string[]
+		{
+			"UnrealActionRPG"
+		});
 	}
 }
