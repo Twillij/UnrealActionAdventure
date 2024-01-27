@@ -17,16 +17,19 @@ class UNREALACTIONRPG_API APlayableCharacter : public ACharacterBase
 public:
 	APlayableCharacter();
 	
-	UPROPERTY(BlueprintReadWrite, Category = "Camera")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera")
 	USpringArmComponent* CameraBoom;
 
-	UPROPERTY(BlueprintReadWrite, Category = "Camera")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera")
 	UCameraComponent* FollowCamera;
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	UInputMappingContext* DefaultMappingContext;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	TObjectPtr<const UInputAction> TestAction;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	UInputAction* JumpAction;
 
@@ -37,8 +40,7 @@ protected:
 	UInputAction* LookAction;
 
 protected:
-	virtual void BeginPlay() override;
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);

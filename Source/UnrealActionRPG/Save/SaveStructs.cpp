@@ -29,7 +29,6 @@ FCharacterMasterInfo::FCharacterMasterInfo(const ACharacterBase* Character)
 {
 	if (!Character)
 		return;
-		
-	Name = Character->Name;
+	
 	LocationInfo = FActorLocationInfo(Character);
 }

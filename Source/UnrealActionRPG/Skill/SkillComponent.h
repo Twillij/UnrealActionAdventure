@@ -1,7 +1,10 @@
 ﻿#pragma once
 
+#include "CoreMinimal.h"
+#include "Components/ActorComponent.h"
 #include "SkillComponent.generated.h"
 
+class UInputAction;
 class USkill;
 
 UCLASS()
@@ -10,15 +13,27 @@ class UNREALACTIONRPG_API USkillComponent : public UActorComponent
     GENERATED_BODY()
 
 protected:
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, DisplayName = "Default Skills")
+    TArray<TSubclassOf<USkill>> DefaultSkillClasses;
+    
+    UPROPERTY()
     TArray<USkill*> Skills;
 
 public:
+    UFUNCTION(BlueprintPure)
+    ACharacter* GetOwningCharacter() const;
+    
     UFUNCTION(BlueprintPure)
     TArray<USkill*> GetAllSkills(){ return Skills; }
     
     UFUNCTION(BlueprintPure)
     USkill* GetSkillOfClass(const TSubclassOf<USkill> SkillClass);
+
+    UFUNCTION(BlueprintPure)
+    USkill* GetSkillOfID(const FName SkillID);
+
+    UFUNCTION(BlueprintPure)
+    bool HasSkill(const USkill* Skill);
     
     UFUNCTION(BlueprintCallable)
     void AddSkill(USkill* Skill);
@@ -26,8 +41,11 @@ public:
     UFUNCTION(BlueprintCallable)
     void RemoveSkill(USkill* Skill);
 
-protected:
-    virtual void BeginPlay() override;
+    UFUNCTION(BlueprintCallable)
+    void BindSkillToInput(USkill* Skill, const UInputAction* InputAction);
 
+protected:
+    virtual void OnRegister() override;
+    
     void InitializeSkills();
 };

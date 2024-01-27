@@ -1,7 +1,10 @@
 #pragma once
 
+#include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "CharacterBase.generated.h"
+
+class USkillComponent;
 
 UCLASS()
 class UNREALACTIONRPG_API ACharacterBase : public ACharacter
@@ -10,10 +13,19 @@ class UNREALACTIONRPG_API ACharacterBase : public ACharacter
 
 public:
 	ACharacterBase();
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Info")
-	FName Name;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Info")
-	FText DisplayName;
+	FText CharacterName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Info")
+	float Health;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Info")
+	float Attack;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Info")
+	float Defense;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Skill")
+	USkillComponent* SkillComponent;
 };

@@ -1,6 +1,9 @@
 ﻿#include "PlayableCharacter.h"
+#include "Skill/SkillComponent.h"
+
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "InputMappingContext.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 
@@ -16,13 +19,16 @@ APlayableCharacter::APlayableCharacter()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
+
+	// Create skill component
+	SkillComponent = CreateDefaultSubobject<USkillComponent>(TEXT("SkillComponent"));
 }
 
-void APlayableCharacter::BeginPlay()
+void APlayableCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-	Super::BeginPlay();
-
-	// Add Input Mapping Context
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	
+	// Add input mapping context
 	if (const APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
@@ -30,12 +36,18 @@ void APlayableCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
-}
 
-void APlayableCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	TArray<FEnhancedActionKeyMapping> InputMappings = DefaultMappingContext->GetMappings();
+	for (FEnhancedActionKeyMapping InputMapping : InputMappings)
+	{
+		FName MappingName = InputMapping.GetMappingName();
 
+		if (MappingName == "IA_Move")
+		{
+			
+		}
+	}
+	
 	// Set up action bindings
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent)) {
 		
@@ -49,6 +61,9 @@ void APlayableCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APlayableCharacter::Look);
 	}
+	
+	SkillComponent->BindSkillToInput(SkillComponent->GetSkillOfID("Test"), TestAction.Get());
+	UE_LOG(LogTemp, Warning, TEXT("Set up input"));
 }
 
 void APlayableCharacter::Move(const FInputActionValue& Value)
