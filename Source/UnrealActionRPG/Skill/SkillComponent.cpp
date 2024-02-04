@@ -64,14 +64,13 @@ void USkillComponent::BindSkillToInput(USkill* Skill, const UInputAction* InputA
 	if (!InputComponent)
 		return;
 	
-	InputComponent->BindAction(InputAction, ETriggerEvent::Triggered, Skill, "ActivateSkill");ETriggerEvent::
+	InputComponent->BindAction(InputAction, ETriggerEvent::Triggered, Skill, "ActivateSkill");
 }
 
 void USkillComponent::OnRegister()
 {
 	Super::OnRegister();
 	InitializeSkills();
-	UE_LOG(LogTemp, Warning, TEXT("Skill comp reg"));
 }
 
 void USkillComponent::InitializeSkills()
