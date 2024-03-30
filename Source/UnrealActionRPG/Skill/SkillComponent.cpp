@@ -27,16 +27,9 @@ USkill* USkillComponent::GetSkillOfID(const FName SkillID)
 	return nullptr;
 }
 
-bool USkillComponent::HasSkill(const USkill* Skill)
+bool USkillComponent::HasSkill(const USkill* Skill) const
 {
-	if (!Skill)
-		return false;
-	
-	for (const USkill* OwnedSkill : Skills)
-		if (OwnedSkill == Skill)
-			return true;
-
-	return false;
+	return Skill ? Skills.Contains(Skill) : false;
 }
 
 void USkillComponent::AddSkill(USkill* Skill)

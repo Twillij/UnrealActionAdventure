@@ -33,7 +33,7 @@ public:
     USkill* GetSkillOfID(const FName SkillID);
 
     UFUNCTION(BlueprintPure)
-    bool HasSkill(const USkill* Skill);
+    bool HasSkill(const USkill* Skill) const;
     
     UFUNCTION(BlueprintCallable)
     void AddSkill(USkill* Skill);
