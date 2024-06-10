@@ -18,7 +18,9 @@ public class UnrealActionRPG : ModuleRules
 			"GameplayTags",
 			"GameplayTasks",
 			"HeadMountedDisplay",
-			"InputCore"
+			"InputCore",
+			"OnlineSubsystem",
+			"OnlineSubsystemSteam"
 		});
 
 		PublicIncludePaths.AddRange(new string[]
