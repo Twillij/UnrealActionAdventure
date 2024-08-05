@@ -5,7 +5,7 @@
 #include "MainGameMode.generated.h"
 
 UCLASS()
-class UNREALACTIONRPG_API AMainGameMode : public AGameModeBase
+class ACTIONADVENTURE_API AMainGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 

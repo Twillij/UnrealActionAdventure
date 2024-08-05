@@ -19,7 +19,7 @@
 	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
 UCLASS()
-class UNREALACTIONRPG_API UCharacterAttributeSet : public UAttributeSet
+class ACTIONADVENTURE_API UCharacterAttributeSet : public UAttributeSet
 {
 	GENERATED_BODY()
 

@@ -8,7 +8,7 @@ class UInputAction;
 class USkill;
 
 UCLASS()
-class UNREALACTIONRPG_API USkillComponent : public UActorComponent
+class ACTIONADVENTURE_API USkillComponent : public UActorComponent
 {
     GENERATED_BODY()
 

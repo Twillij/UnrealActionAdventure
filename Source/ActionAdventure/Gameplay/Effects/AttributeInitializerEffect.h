@@ -5,7 +5,7 @@
 #include "AttributeInitializerEffect.generated.h"
 
 UCLASS()
-class UNREALACTIONRPG_API UAttributeInitializerEffect : public UGameplayEffect
+class ACTIONADVENTURE_API UAttributeInitializerEffect : public UGameplayEffect
 {
 	GENERATED_BODY()
 

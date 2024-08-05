@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class UnrealActionRPG : ModuleRules
+public class ActionAdventure : ModuleRules
 {
-	public UnrealActionRPG(ReadOnlyTargetRules Target) : base(Target)
+	public ActionAdventure(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
@@ -25,7 +25,7 @@ public class UnrealActionRPG : ModuleRules
 
 		PublicIncludePaths.AddRange(new string[]
 		{
-			"UnrealActionRPG"
+			"ActionAdventure"
 		});
 	}
 }

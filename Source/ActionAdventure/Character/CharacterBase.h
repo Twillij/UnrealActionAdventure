@@ -7,7 +7,7 @@
 class USkillComponent;
 
 UCLASS()
-class UNREALACTIONRPG_API ACharacterBase : public ACharacter
+class ACTIONADVENTURE_API ACharacterBase : public ACharacter
 {
 	GENERATED_BODY()
 

@@ -10,7 +10,7 @@ class USpringArmComponent;
 struct FInputActionValue;
 
 UCLASS()
-class UNREALACTIONRPG_API APlayableCharacter : public ACharacterBase
+class ACTIONADVENTURE_API APlayableCharacter : public ACharacterBase
 {
 	GENERATED_BODY()
 
