@@ -31,7 +31,6 @@ void AMainGameMode::LoadGameProgress()
 		FString LogString = "Save sample log string\n";
 		LogString.Append("Name:" + PlayerInfo.Name.ToString() + "\n");
 		LogString.Append("Location: " + PlayerInfo.LocationInfo.WorldLocation.ToString() + "\n");
-		LogString.Append("HP: " + FString::SanitizeFloat(PlayerInfo.AttributeInfo.Health) + "\n");
 		UE_LOG(RPGSave, Display, TEXT("%s"), *LogString);
 	}
 }

@@ -9,7 +9,6 @@
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
-				"GameplayAbilities",
 				"Engine"
 			]
 		}
@@ -21,10 +20,6 @@
 			"TargetAllowList": [
 				"Editor"
 			]
-		},
-		{
-			"Name": "GameplayAbilities",
-			"Enabled": true
 		},
 		{
 			"Name": "OnlineSubsystemSteam",

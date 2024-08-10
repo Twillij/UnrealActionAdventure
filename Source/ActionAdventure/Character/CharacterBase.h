@@ -17,15 +17,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Info")
 	FText CharacterName;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Info")
-	float Health;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Info")
-	float Attack;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Info")
-	float Defense;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Skill")
 	USkillComponent* SkillComponent;
 };

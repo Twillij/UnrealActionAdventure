@@ -14,13 +14,7 @@ public class ActionAdventure : ModuleRules
 			"CoreUObject",
 			"Engine",
 			"EnhancedInput",
-			"GameplayAbilities",
-			"GameplayTags",
-			"GameplayTasks",
-			"HeadMountedDisplay",
-			"InputCore",
-			"OnlineSubsystem",
-			"OnlineSubsystemSteam"
+			"InputCore"
 		});
 
 		PublicIncludePaths.AddRange(new string[]

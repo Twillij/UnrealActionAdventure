@@ -16,9 +16,6 @@ class ACTIONADVENTURE_API USaveFunctionLibrary : public UBlueprintFunctionLibrar
 public:
 	UFUNCTION(BlueprintCallable, Category = "Save|Info")
 	static FActorLocationInfo CreateActorLocationInfo(const AActor* Actor);
-	
-	UFUNCTION(BlueprintCallable, Category = "Save|Info")
-	static FCharacterAttributeInfo CreateCharacterAttributeInfo(const UCharacterAttributeSet* CharacterAttributeSet);
 
 	UFUNCTION(BlueprintCallable, Category = "Save|Info")
 	static FCharacterMasterInfo CreateCharacterMasterInfo(const ACharacterBase* Character);

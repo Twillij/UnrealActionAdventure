@@ -25,27 +25,6 @@ struct FActorLocationInfo
 };
 
 USTRUCT(BlueprintType)
-struct FCharacterAttributeInfo
-{
-	GENERATED_BODY();
-
-	UPROPERTY(BlueprintReadWrite)
-	float Health = 0;
-
-	UPROPERTY(BlueprintReadWrite)
-	float MaxHealth = 0;
-
-	UPROPERTY(BlueprintReadWrite)
-	float Mana = 0;
-
-	UPROPERTY(BlueprintReadWrite)
-	float MaxMana = 0;
-
-	FCharacterAttributeInfo(){}
-	FCharacterAttributeInfo(const UCharacterAttributeSet* CharacterAttributeSet);
-};
-
-USTRUCT(BlueprintType)
 struct FCharacterMasterInfo
 {
 	GENERATED_BODY();
@@ -55,9 +34,6 @@ struct FCharacterMasterInfo
 
 	UPROPERTY(BlueprintReadWrite)
 	FActorLocationInfo LocationInfo = FActorLocationInfo();
-
-	UPROPERTY(BlueprintReadWrite)
-	FCharacterAttributeInfo AttributeInfo = FCharacterAttributeInfo();
 
 	FCharacterMasterInfo(){}
 	FCharacterMasterInfo(const ACharacterBase* Character);
