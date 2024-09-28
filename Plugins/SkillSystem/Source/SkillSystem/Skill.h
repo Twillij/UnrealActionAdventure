@@ -7,7 +7,7 @@
 class USkillComponent;
 
 UCLASS(Blueprintable)
-class ACTIONADVENTURE_API USkill : public UObject
+class SKILLSYSTEM_API USkill : public UObject
 {
 	GENERATED_BODY()
 

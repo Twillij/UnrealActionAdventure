@@ -1,5 +1,5 @@
 ﻿#include "PlayableCharacter.h"
-#include "Skill/SkillComponent.h"
+#include "SkillSystem/SkillComponent.h"
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"

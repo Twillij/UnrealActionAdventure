@@ -1,5 +1,3 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
-
 using UnrealBuildTool;
 
 public class ActionAdventure : ModuleRules
@@ -14,7 +12,8 @@ public class ActionAdventure : ModuleRules
 			"CoreUObject",
 			"Engine",
 			"EnhancedInput",
-			"InputCore"
+			"InputCore",
+			"SkillSystem"
 		});
 
 		PublicIncludePaths.AddRange(new string[]
