@@ -2,10 +2,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "MainGameMode.generated.h"
+#include "CampaignGameMode.generated.h"
 
 UCLASS()
-class ACTIONADVENTURE_API AMainGameMode : public AGameModeBase
+class ACTIONADVENTURE_API ACampaignGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 

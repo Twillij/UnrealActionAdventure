@@ -1,10 +1,10 @@
-#include "MainGameMode.h"
+#include "CampaignGameMode.h"
 #include "Character/CharacterBase.h"
 #include "Save/MainSaveGame.h"
 #include "Save/SaveSubsystem.h"
 #include "Kismet/GameplayStatics.h"
 
-void AMainGameMode::SaveGameProgress()
+void ACampaignGameMode::SaveGameProgress()
 {
 	UMySaveGame* SaveGameObject = Cast<UMySaveGame>(UGameplayStatics::CreateSaveGameObject(UMySaveGame::StaticClass()));
 	ACharacterBase* PlayerCharacter = Cast<ACharacterBase>(UGameplayStatics::GetPlayerCharacter(this, 0));
@@ -23,7 +23,7 @@ void AMainGameMode::SaveGameProgress()
 	}
 }
 
-void AMainGameMode::LoadGameProgress()
+void ACampaignGameMode::LoadGameProgress()
 {
 	if (UMySaveGame* LoadedGame = Cast<UMySaveGame>(UGameplayStatics::LoadGameFromSlot("SlotName", 0)))
 	{
@@ -35,7 +35,7 @@ void AMainGameMode::LoadGameProgress()
 	}
 }
 
-void AMainGameMode::BeginPlay()
+void ACampaignGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 }
