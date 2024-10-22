@@ -3,10 +3,10 @@
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
 #include "SaveStructs.h"
-#include "MainSaveGame.generated.h"
+#include "PlayerSaveGame.generated.h"
 
 UCLASS()
-class ACTIONADVENTURE_API UMySaveGame : public USaveGame
+class ACTIONADVENTURE_API UPlayerSaveGame : public USaveGame
 {
 	GENERATED_BODY()
 	

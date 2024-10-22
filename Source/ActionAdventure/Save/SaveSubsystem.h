@@ -15,18 +15,18 @@ class ACTIONADVENTURE_API USaveSubsystem : public UGameInstanceSubsystem
 
 protected:
 	UPROPERTY(BlueprintReadOnly)
-	UMySaveGame* LastSavedGame;
+	UPlayerSaveGame* LastSavedGame;
 
 	UPROPERTY(BlueprintReadOnly)
-	UMySaveGame* LastLoadedGame;	
+	UPlayerSaveGame* LastLoadedGame;	
 
 public:
-	UMySaveGame* GetLastSavedGame() { return LastSavedGame; }
-	UMySaveGame* GetLastLoadedGame() { return LastLoadedGame; }
+	UPlayerSaveGame* GetLastSavedGame() { return LastSavedGame; }
+	UPlayerSaveGame* GetLastLoadedGame() { return LastLoadedGame; }
 
 	UFUNCTION(BlueprintCallable, meta = (WorldContext = "WorldContextObject"))
-	void SaveGameProgress(UObject* WorldContextObject, UMySaveGame* SaveGameObject = nullptr, FString SaveSlotName = "Default", int32 UserIndex = 0);
+	void SaveGameProgress(UObject* WorldContextObject, UPlayerSaveGame* SaveGameObject = nullptr, FString SaveSlotName = "Default", int32 UserIndex = 0);
 
 	UFUNCTION(BlueprintCallable)
-	UMySaveGame* LoadGameProgress(FString SaveSlotName = "Default", int32 UserIndex = 0);
+	UPlayerSaveGame* LoadGameProgress(FString SaveSlotName = "Default", int32 UserIndex = 0);
 };

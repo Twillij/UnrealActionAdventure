@@ -1,11 +1,11 @@
 #include "SaveSubsystem.h"
-#include "MainSaveGame.h"
+#include "PlayerSaveGame.h"
 #include "Character/CharacterBase.h"
 #include "Kismet/GameplayStatics.h"
 
 DEFINE_LOG_CATEGORY(RPGSave);
 
-void USaveSubsystem::SaveGameProgress(UObject* WorldContextObject, UMySaveGame* SaveGameObject, FString SaveSlotName, int32 UserIndex)
+void USaveSubsystem::SaveGameProgress(UObject* WorldContextObject, UPlayerSaveGame* SaveGameObject, FString SaveSlotName, int32 UserIndex)
 {
 	ACharacterBase* PlayerCharacter = Cast<ACharacterBase>(UGameplayStatics::GetPlayerCharacter(WorldContextObject, UserIndex));
 
@@ -17,7 +17,7 @@ void USaveSubsystem::SaveGameProgress(UObject* WorldContextObject, UMySaveGame* 
 			return;
 		}
 
-		SaveGameObject = Cast<UMySaveGame>(UGameplayStatics::CreateSaveGameObject(UMySaveGame::StaticClass()));
+		SaveGameObject = Cast<UPlayerSaveGame>(UGameplayStatics::CreateSaveGameObject(UPlayerSaveGame::StaticClass()));
 		SaveGameObject->PlayerInfo = FCharacterMasterInfo(PlayerCharacter);
 	}
 
@@ -29,9 +29,9 @@ void USaveSubsystem::SaveGameProgress(UObject* WorldContextObject, UMySaveGame* 
 	LastSavedGame = SaveGameObject;
 }
 
-UMySaveGame* USaveSubsystem::LoadGameProgress(FString SaveSlotName, int32 UserIndex)
+UPlayerSaveGame* USaveSubsystem::LoadGameProgress(FString SaveSlotName, int32 UserIndex)
 {
-	UMySaveGame* LoadedGame = Cast<UMySaveGame>(UGameplayStatics::LoadGameFromSlot(SaveSlotName, UserIndex));
+	UPlayerSaveGame* LoadedGame = Cast<UPlayerSaveGame>(UGameplayStatics::LoadGameFromSlot(SaveSlotName, UserIndex));
 
 	if (LoadedGame)
 	{
