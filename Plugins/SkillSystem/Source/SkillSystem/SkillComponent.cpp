@@ -2,14 +2,21 @@
 #include "Skill.h"
 
 #include "EnhancedInputComponent.h"
-#include "GameFramework/Character.h"
+#include "GameFramework/Pawn.h"
 
-ACharacter* USkillComponent::GetOwningCharacter() const
+USkillComponent::USkillComponent()
 {
-	return Cast<ACharacter>(GetOwner());
+	SetIsReplicatedByDefault(true);
+	bReplicateUsingRegisteredSubObjectList = true;
 }
 
-USkill* USkillComponent::GetSkillOfClass(const TSubclassOf<USkill> SkillClass)
+AController* USkillComponent::GetOwningController() const
+{
+	const APawn* OwningPawn = GetOwningPawn();
+	return OwningPawn ? OwningPawn->GetController() : nullptr;
+}
+
+USkill* USkillComponent::GetSkillOfClass(const TSubclassOf<USkill>& SkillClass)
 {
 	for (USkill* Skill : Skills)
 		if (Skill && Skill->GetClass() == SkillClass)
@@ -35,45 +42,62 @@ bool USkillComponent::HasSkill(const USkill* Skill) const
 void USkillComponent::AddSkill(USkill* Skill)
 {
 	if (Skills.AddUnique(Skill))
-		Skill->OwningComponent = this;
+		Skill->SetOwningComponent(this);
 }
 
 void USkillComponent::RemoveSkill(USkill* Skill)
 {
 	if (Skills.Remove(Skill))
-		Skill->OwningComponent = nullptr;
+		Skill->SetOwningComponent(nullptr);
 }
 
-void USkillComponent::BindSkillToInput(USkill* Skill, const UInputAction* InputAction)
+void USkillComponent::BindSkillToInput(USkill* Skill, const UInputAction* InputAction) const
 {
 	if (!HasSkill(Skill) || !InputAction)
 		return;
 
-	const ACharacter* OwningCharacter = GetOwningCharacter();
-	if (!OwningCharacter)
+	const APawn* OwningPawn = GetOwningPawn();
+	if (!OwningPawn)
 		return;
 
-	UEnhancedInputComponent* InputComponent = Cast<UEnhancedInputComponent>(OwningCharacter->InputComponent);
+	UEnhancedInputComponent* InputComponent = Cast<UEnhancedInputComponent>(OwningPawn->InputComponent);
 	if (!InputComponent)
 		return;
 	
 	InputComponent->BindAction(InputAction, ETriggerEvent::Triggered, Skill, "ActivateSkill");
 }
 
-void USkillComponent::OnRegister()
+FString USkillComponent::GetOwnerName() const
 {
-	Super::OnRegister();
-	InitializeSkills();
+	const AActor* Owner = GetOwner();
+	return Owner ? Owner->GetName() : "Invalid";
 }
 
-void USkillComponent::InitializeSkills()
+FString USkillComponent::GetOwnerNetRoleAsString() const
 {
-	for (TSubclassOf<USkill> SkillClass : DefaultSkillClasses)
+	const UEnum* EnumPtr = FindFirstObjectSafe<UEnum>(TEXT("ENetRole"));
+	return EnumPtr ? EnumPtr->GetNameStringByValue(GetOwnerRole()) : "Invalid";
+}
+
+void USkillComponent::InitializeComponent()
+{
+	Super::InitializeComponent();
+
+	if (HasAuthority())
 	{
-		if (SkillClass)
+		for (TSubclassOf<USkill> SkillClass : DefaultSkillClasses)
 		{
-			USkill* NewSkill = NewObject<USkill>(this, SkillClass);
-			AddSkill(NewSkill);
+			if (SkillClass)
+			{
+				USkill* NewSkill = NewObject<USkill>(this, SkillClass);
+				AddSkill(NewSkill);
+				AddReplicatedSubObject(NewSkill);
+			}
 		}
 	}
+}
+
+void USkillComponent::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 }

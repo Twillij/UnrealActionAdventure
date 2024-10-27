@@ -2,6 +2,7 @@
 #include "Components/CapsuleComponent.h"	
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
+#include "SkillSystem/SkillComponent.h"
 
 ACharacterBase::ACharacterBase()
 {
@@ -24,4 +25,7 @@ ACharacterBase::ACharacterBase()
 	GetCharacterMovement()->MaxWalkSpeed = 500.f;
 	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
+
+	bReplicates = true;
+	SkillComponent = CreateDefaultSubobject<USkillComponent>("SkillComponent");
 }

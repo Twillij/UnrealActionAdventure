@@ -19,9 +19,6 @@ APlayableCharacter::APlayableCharacter()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
-
-	// Create skill component
-	SkillComponent = CreateDefaultSubobject<USkillComponent>(TEXT("SkillComponent"));
 }
 
 void APlayableCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -62,8 +59,8 @@ void APlayableCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APlayableCharacter::Look);
 	}
 	
-	SkillComponent->BindSkillToInput(SkillComponent->GetSkillOfID("Test"), TestAction.Get());
-	UE_LOG(LogTemp, Warning, TEXT("Set up input"));
+	//SkillComponent->BindSkillToInput(SkillComponent->GetSkillOfID("Test"), TestAction.Get());
+	//UE_LOG(LogTemp, Warning, TEXT("Set up input"));
 }
 
 void APlayableCharacter::Move(const FInputActionValue& Value)

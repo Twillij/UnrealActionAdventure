@@ -25,7 +25,8 @@ public class SkillSystem : ModuleRules
 			{
 				"Core",
 				"EnhancedInput",
-				"InputCore"
+				"InputCore",
+				"UMG"
 			});
 			
 		
