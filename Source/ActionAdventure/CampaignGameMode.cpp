@@ -1,12 +1,12 @@
 #include "CampaignGameMode.h"
 #include "Character/CharacterBase.h"
-#include "Save/MainSaveGame.h"
+#include "Save/PlayerSaveGame.h"
 #include "Save/SaveSubsystem.h"
 #include "Kismet/GameplayStatics.h"
 
 void ACampaignGameMode::SaveGameProgress()
 {
-	UMySaveGame* SaveGameObject = Cast<UMySaveGame>(UGameplayStatics::CreateSaveGameObject(UMySaveGame::StaticClass()));
+	UPlayerSaveGame* SaveGameObject = Cast<UPlayerSaveGame>(UGameplayStatics::CreateSaveGameObject(UPlayerSaveGame::StaticClass()));
 	ACharacterBase* PlayerCharacter = Cast<ACharacterBase>(UGameplayStatics::GetPlayerCharacter(this, 0));
 	
 	if (!PlayerCharacter)
@@ -25,7 +25,7 @@ void ACampaignGameMode::SaveGameProgress()
 
 void ACampaignGameMode::LoadGameProgress()
 {
-	if (UMySaveGame* LoadedGame = Cast<UMySaveGame>(UGameplayStatics::LoadGameFromSlot("SlotName", 0)))
+	if (UPlayerSaveGame* LoadedGame = Cast<UPlayerSaveGame>(UGameplayStatics::LoadGameFromSlot("SlotName", 0)))
 	{
 		const FCharacterMasterInfo PlayerInfo = LoadedGame->PlayerInfo;
 		FString LogString = "Save sample log string\n";
