@@ -6,6 +6,7 @@
 
 USkillComponent::USkillComponent()
 {
+	bWantsInitializeComponent = true;
 	SetIsReplicatedByDefault(true);
 	bReplicateUsingRegisteredSubObjectList = true;
 }

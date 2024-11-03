@@ -21,10 +21,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FText SkillDescription;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
 	bool bUnlocked = false;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = 0))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, meta = (ClampMin = 0))
 	int32 SkillLevel = 0;
 
 protected:
