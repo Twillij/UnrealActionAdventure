@@ -19,7 +19,7 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, DisplayName = "Default Skills")
     TArray<TSubclassOf<USkill>> DefaultSkillClasses;
     
-    UPROPERTY()
+    UPROPERTY(Replicated)
     TArray<USkill*> Skills;
 
 public:
@@ -63,6 +63,6 @@ public:
     FString GetOwnerNetRoleAsString() const;
 
 protected:
-    virtual void InitializeComponent() override;
+    virtual void OnRegister() override;
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 };

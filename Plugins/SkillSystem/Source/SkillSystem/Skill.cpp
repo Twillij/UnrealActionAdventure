@@ -3,7 +3,7 @@
 
 void USkill::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
-	UObject::GetLifetimeReplicatedProps(OutLifetimeProps);
-	DOREPLIFETIME(USkill, bUnlocked)
-	DOREPLIFETIME(USkill, SkillLevel)
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(USkill, bUnlocked);
+	DOREPLIFETIME(USkill, SkillLevel);
 }

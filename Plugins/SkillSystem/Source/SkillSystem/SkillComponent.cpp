@@ -1,12 +1,11 @@
 ﻿#include "SkillComponent.h"
 #include "Skill.h"
-
 #include "EnhancedInputComponent.h"
 #include "GameFramework/Pawn.h"
+#include "Net/UnrealNetwork.h"
 
 USkillComponent::USkillComponent()
 {
-	bWantsInitializeComponent = true;
 	SetIsReplicatedByDefault(true);
 	bReplicateUsingRegisteredSubObjectList = true;
 }
@@ -42,14 +41,21 @@ bool USkillComponent::HasSkill(const USkill* Skill) const
 
 void USkillComponent::AddSkill(USkill* Skill)
 {
-	if (Skills.AddUnique(Skill))
+	if (Skill && !Skills.Contains(Skill))
+	{
+		AddReplicatedSubObject(Skill);
+		Skills.Add(Skill);
 		Skill->SetOwningComponent(this);
+	}
 }
 
 void USkillComponent::RemoveSkill(USkill* Skill)
 {
 	if (Skills.Remove(Skill))
+	{
+		RemoveReplicatedSubObject(Skill);
 		Skill->SetOwningComponent(nullptr);
+	}
 }
 
 void USkillComponent::BindSkillToInput(USkill* Skill, const UInputAction* InputAction) const
@@ -80,25 +86,25 @@ FString USkillComponent::GetOwnerNetRoleAsString() const
 	return EnumPtr ? EnumPtr->GetNameStringByValue(GetOwnerRole()) : "Invalid";
 }
 
-void USkillComponent::InitializeComponent()
+void USkillComponent::OnRegister()
 {
-	Super::InitializeComponent();
+	Super::OnRegister();
 
-	if (HasAuthority())
+	if (GetWorld() && GetWorld()->IsGameWorld() && HasAuthority())
 	{
-		for (TSubclassOf<USkill> SkillClass : DefaultSkillClasses)
+		for (int i = 0; i < DefaultSkillClasses.Num(); ++i)
 		{
-			if (SkillClass)
+			if (DefaultSkillClasses[i])
 			{
-				USkill* NewSkill = NewObject<USkill>(this, SkillClass);
+				USkill* NewSkill = NewObject<USkill>(this, DefaultSkillClasses[i]);
 				AddSkill(NewSkill);
-				AddReplicatedSubObject(NewSkill);
 			}
 		}
 	}
 }
 
-void USkillComponent::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
+void USkillComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(USkillComponent, Skills);
 }
