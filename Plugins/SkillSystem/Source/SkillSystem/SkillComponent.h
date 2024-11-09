@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
+#include "SkillGlobals.h"
 #include "Components/ActorComponent.h"
 #include "SkillComponent.generated.h"
 
@@ -31,6 +32,12 @@ public:
     
     UFUNCTION(BlueprintPure, Category = "Network")
     bool HasAuthority() const { return GetOwnerRole() == ROLE_Authority; }
+
+    UFUNCTION(BlueprintCallable, Client, Reliable, Category = "Network")
+    virtual void ClientSendSkillData();
+
+    UFUNCTION(BlueprintCallable, Server, Reliable, Category = "Network")
+    virtual void ServerReceiveSkillData(const TArray<FSkillData>& SkillDataArray);
     
     UFUNCTION(BlueprintPure, Category = "Skill")
     TArray<USkill*> GetAllSkills() { return Skills; }
@@ -49,10 +56,7 @@ public:
 
     UFUNCTION(BlueprintCallable, Category = "Skill")
     void RemoveSkill(USkill* Skill);
-
-    UFUNCTION(BlueprintCallable, Category = "Skill")
-    void BindSkillToInput(USkill* Skill, const UInputAction* InputAction) const;
-
+    
     UFUNCTION(BlueprintPure, Category = "Debug")
     FString GetClassName() const { return GetClass()->GetName(); }
 

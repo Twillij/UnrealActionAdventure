@@ -1,6 +1,5 @@
 ﻿#include "SkillComponent.h"
 #include "Skill.h"
-#include "EnhancedInputComponent.h"
 #include "GameFramework/Pawn.h"
 #include "Net/UnrealNetwork.h"
 
@@ -14,6 +13,20 @@ AController* USkillComponent::GetOwningController() const
 {
 	const APawn* OwningPawn = GetOwningPawn();
 	return OwningPawn ? OwningPawn->GetController() : nullptr;
+}
+
+void USkillComponent::ClientSendSkillData_Implementation()
+{
+	TArray<FSkillData> SkillDataArray;
+	ServerReceiveSkillData(SkillDataArray);
+}
+
+void USkillComponent::ServerReceiveSkillData_Implementation(const TArray<FSkillData>& SkillDataArray)
+{
+	for (const FSkillData SkillData : SkillDataArray)
+	{
+		
+	}
 }
 
 USkill* USkillComponent::GetSkillOfClass(const TSubclassOf<USkill>& SkillClass)
@@ -58,22 +71,6 @@ void USkillComponent::RemoveSkill(USkill* Skill)
 	}
 }
 
-void USkillComponent::BindSkillToInput(USkill* Skill, const UInputAction* InputAction) const
-{
-	if (!HasSkill(Skill) || !InputAction)
-		return;
-
-	const APawn* OwningPawn = GetOwningPawn();
-	if (!OwningPawn)
-		return;
-
-	UEnhancedInputComponent* InputComponent = Cast<UEnhancedInputComponent>(OwningPawn->InputComponent);
-	if (!InputComponent)
-		return;
-	
-	InputComponent->BindAction(InputAction, ETriggerEvent::Triggered, Skill, "ActivateSkill");
-}
-
 FString USkillComponent::GetOwnerName() const
 {
 	const AActor* Owner = GetOwner();
@@ -101,6 +98,7 @@ void USkillComponent::OnRegister()
 			}
 		}
 	}
+	ClientSendSkillData();
 }
 
 void USkillComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const

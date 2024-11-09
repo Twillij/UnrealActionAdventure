@@ -8,6 +8,10 @@ class SKILLSYSTEM_API UPlayerSkillComponent : public USkillComponent
 {
 	GENERATED_BODY()
 
+public:
+	UFUNCTION(BlueprintCallable, Category = "Skill")
+	void BindSkillToInput(USkill* Skill, const UInputAction* InputAction) const;
+	
 protected:
-	virtual void InitializeComponent() override;
+	virtual void OnRegister() override;
 };
