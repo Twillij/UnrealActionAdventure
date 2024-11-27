@@ -18,6 +18,16 @@ void UPlayerSkillComponent::BindSkillToInput(USkill* Skill, const UInputAction* 
 	InputComponent->BindAction(InputAction, ETriggerEvent::Triggered, Skill, "ActivateSkill");
 }
 
+void UPlayerSkillComponent::ClientSendSkills_Implementation()
+{
+	ServerReceiveSkills(GetSkillsToLoad());
+}
+
+void UPlayerSkillComponent::ServerReceiveSkills_Implementation(const TArray<FSkillData>& SkillDataArray)
+{
+	LoadSkills(SkillDataArray);
+}
+
 void UPlayerSkillComponent::OnRegister()
 {
 	Super::OnRegister();

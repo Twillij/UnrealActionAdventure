@@ -15,20 +15,6 @@ AController* USkillComponent::GetOwningController() const
 	return OwningPawn ? OwningPawn->GetController() : nullptr;
 }
 
-void USkillComponent::ClientSendSkillData_Implementation()
-{
-	TArray<FSkillData> SkillDataArray;
-	ServerReceiveSkillData(SkillDataArray);
-}
-
-void USkillComponent::ServerReceiveSkillData_Implementation(const TArray<FSkillData>& SkillDataArray)
-{
-	for (const FSkillData SkillData : SkillDataArray)
-	{
-		
-	}
-}
-
 USkill* USkillComponent::GetSkillOfClass(const TSubclassOf<USkill>& SkillClass)
 {
 	for (USkill* Skill : Skills)
@@ -71,6 +57,17 @@ void USkillComponent::RemoveSkill(USkill* Skill)
 	}
 }
 
+TArray<FSkillData> USkillComponent::GetSkillsToLoad_Implementation()
+{
+	TArray<FSkillData> OutSkills;
+	return OutSkills;
+}
+
+void USkillComponent::LoadSkills_Implementation(const TArray<FSkillData>& SkillsToLoad)
+{
+	
+}
+
 FString USkillComponent::GetOwnerName() const
 {
 	const AActor* Owner = GetOwner();
@@ -89,11 +86,11 @@ void USkillComponent::OnRegister()
 
 	if (GetWorld() && GetWorld()->IsGameWorld() && HasAuthority())
 	{
-		for (int i = 0; i < DefaultSkillClasses.Num(); ++i)
+		for (int i = 0; i < PresetSkillClasses.Num(); ++i)
 		{
-			if (DefaultSkillClasses[i])
+			if (PresetSkillClasses[i])
 			{
-				USkill* NewSkill = NewObject<USkill>(this, DefaultSkillClasses[i]);
+				USkill* NewSkill = NewObject<USkill>(this, PresetSkillClasses[i]);
 				AddSkill(NewSkill);
 			}
 		}

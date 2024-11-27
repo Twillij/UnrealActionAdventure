@@ -18,7 +18,7 @@ public:
     
 protected:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, DisplayName = "Default Skills")
-    TArray<TSubclassOf<USkill>> DefaultSkillClasses;
+    TArray<TSubclassOf<USkill>> PresetSkillClasses;
     
     UPROPERTY(Replicated)
     TArray<USkill*> Skills;
@@ -32,12 +32,6 @@ public:
     
     UFUNCTION(BlueprintPure, Category = "Network")
     bool HasAuthority() const { return GetOwnerRole() == ROLE_Authority; }
-
-    UFUNCTION(BlueprintCallable, Client, Reliable, Category = "Network")
-    virtual void ClientSendSkillData();
-
-    UFUNCTION(BlueprintCallable, Server, Reliable, Category = "Network")
-    virtual void ServerReceiveSkillData(const TArray<FSkillData>& SkillDataArray);
     
     UFUNCTION(BlueprintPure, Category = "Skill")
     TArray<USkill*> GetAllSkills() { return Skills; }
@@ -56,6 +50,12 @@ public:
 
     UFUNCTION(BlueprintCallable, Category = "Skill")
     void RemoveSkill(USkill* Skill);
+
+    UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "Skill")
+    TArray<FSkillData> GetSkillsToLoad();
+
+    UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "Skill")
+    void LoadSkills(const TArray<FSkillData>& SkillsToLoad);
     
     UFUNCTION(BlueprintPure, Category = "Debug")
     FString GetClassName() const { return GetClass()->GetName(); }
