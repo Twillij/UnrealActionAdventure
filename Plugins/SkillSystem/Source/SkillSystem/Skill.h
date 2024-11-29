@@ -4,6 +4,7 @@
 #include "UObject/Object.h"
 #include "Skill.generated.h"
 
+struct FSkillData;
 class USkillComponent;
 
 UCLASS(Blueprintable)
@@ -34,10 +35,13 @@ protected:
 public:
 	USkillComponent* GetOwningComponent() const { return OwningComponent; }
 	void SetOwningComponent(USkillComponent* InSkillComponent) { OwningComponent = InSkillComponent; }
+
+	UFUNCTION(BlueprintNativeEvent, Category = "Skill")
+	void InitializeSkillData(const FSkillData& SkillData);
 	
 	UFUNCTION(BlueprintNativeEvent, Category = "Skill")
 	void ActivateSkill();
-	void virtual ActivateSkill_Implementation() {}
+	virtual void ActivateSkill_Implementation() {}
 	
 	UFUNCTION(BlueprintPure, Category = "Debug")
 	FString GetLockedStatusAsString() const { return bUnlocked ? "Unlocked" : "Locked"; }

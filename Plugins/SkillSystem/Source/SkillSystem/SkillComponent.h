@@ -14,16 +14,19 @@ class SKILLSYSTEM_API USkillComponent : public UActorComponent
     GENERATED_BODY()
 
 public:
-    USkillComponent();
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    bool bAutoLoadPresetSkills = true;
     
 protected:
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, DisplayName = "Default Skills")
-    TArray<TSubclassOf<USkill>> PresetSkillClasses;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (EditCondition = "bAutoLoadPresetSkills"))
+    TArray<FSkillData> PresetSkills;
     
     UPROPERTY(Replicated)
     TArray<USkill*> Skills;
 
 public:
+    USkillComponent();
+    
     UFUNCTION(BlueprintPure, Category = "Component")
     APawn* GetOwningPawn() const { return Cast<APawn>(GetOwner()); }
 
@@ -51,11 +54,23 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Skill")
     void RemoveSkill(USkill* Skill);
 
-    UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "Skill")
-    TArray<FSkillData> GetSkillsToLoad();
+    // Returns a skill data array that is used for initialization.
+    // This function is intended for custom implementation, e.g. to load skills from a save file.
+    UFUNCTION(BlueprintNativeEvent, Category = "Skill")
+    TArray<FSkillData> GetSkillsToInitialize();
 
-    UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "Skill")
-    void LoadSkills(const TArray<FSkillData>& SkillsToLoad);
+    // Creates skill instances based on the provided skill data array and caches within the Skills array.
+    UFUNCTION(BlueprintCallable, Category = "Skill")
+    void InitializeSkills(const TArray<FSkillData>& InSkills);
+
+    // Retrieves skill data from the client and then sends it to the server to initialize.
+    // Must be called from the owning actor on the server.
+    UFUNCTION(Client, Reliable, BlueprintCallable, Category = "Skill")
+    void ClientInitializeSkills();
+
+    // Initializes skills on the server and replicates it to the owning actor.
+    UFUNCTION(Server, Reliable, BlueprintCallable, Category = "Skill")
+    void ServerInitializeSkills(const TArray<FSkillData>& InSkills);
     
     UFUNCTION(BlueprintPure, Category = "Debug")
     FString GetClassName() const { return GetClass()->GetName(); }

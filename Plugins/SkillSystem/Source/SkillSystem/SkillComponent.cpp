@@ -57,15 +57,32 @@ void USkillComponent::RemoveSkill(USkill* Skill)
 	}
 }
 
-TArray<FSkillData> USkillComponent::GetSkillsToLoad_Implementation()
+TArray<FSkillData> USkillComponent::GetSkillsToInitialize_Implementation()
 {
-	TArray<FSkillData> OutSkills;
-	return OutSkills;
+	return PresetSkills;
 }
 
-void USkillComponent::LoadSkills_Implementation(const TArray<FSkillData>& SkillsToLoad)
+void USkillComponent::InitializeSkills(const TArray<FSkillData>& InSkills)
 {
-	
+	for (int i = 0; i < InSkills.Num(); ++i)
+	{
+		if (InSkills[i].SkillClass)
+		{
+			USkill* NewSkill = NewObject<USkill>(this, PresetSkills[i].SkillClass);
+			NewSkill->InitializeSkillData(PresetSkills[i]);
+			AddSkill(NewSkill);
+		}
+	}
+}
+
+void USkillComponent::ClientInitializeSkills_Implementation()
+{
+	ServerInitializeSkills(GetSkillsToInitialize());
+}
+
+void USkillComponent::ServerInitializeSkills_Implementation(const TArray<FSkillData>& InSkills)
+{
+	InitializeSkills(InSkills);
 }
 
 FString USkillComponent::GetOwnerName() const
@@ -86,16 +103,8 @@ void USkillComponent::OnRegister()
 
 	if (GetWorld() && GetWorld()->IsGameWorld() && HasAuthority())
 	{
-		for (int i = 0; i < PresetSkillClasses.Num(); ++i)
-		{
-			if (PresetSkillClasses[i])
-			{
-				USkill* NewSkill = NewObject<USkill>(this, PresetSkillClasses[i]);
-				AddSkill(NewSkill);
-			}
-		}
+		InitializeSkills(PresetSkills);
 	}
-	ClientSendSkillData();
 }
 
 void USkillComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const

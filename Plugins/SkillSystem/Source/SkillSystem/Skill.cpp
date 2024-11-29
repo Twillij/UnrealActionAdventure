@@ -1,5 +1,12 @@
 ﻿#include "Skill.h"
+#include "SkillGlobals.h"
 #include "Net/UnrealNetwork.h"
+
+void USkill::InitializeSkillData_Implementation(const FSkillData& SkillData)
+{
+	bUnlocked = SkillData.bUnlocked;
+	SkillLevel = SkillData.SkillLevel;
+}
 
 void USkill::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {

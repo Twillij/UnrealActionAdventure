@@ -4,6 +4,9 @@
 
 void UPlayerSkillComponent::BindSkillToInput(USkill* Skill, const UInputAction* InputAction) const
 {
+	if (!HasAuthority())
+		return;
+	
 	if (!HasSkill(Skill) || !InputAction)
 		return;
 
@@ -16,24 +19,4 @@ void UPlayerSkillComponent::BindSkillToInput(USkill* Skill, const UInputAction* 
 		return;
 
 	InputComponent->BindAction(InputAction, ETriggerEvent::Triggered, Skill, "ActivateSkill");
-}
-
-void UPlayerSkillComponent::ClientSendSkills_Implementation()
-{
-	ServerReceiveSkills(GetSkillsToLoad());
-}
-
-void UPlayerSkillComponent::ServerReceiveSkills_Implementation(const TArray<FSkillData>& SkillDataArray)
-{
-	LoadSkills(SkillDataArray);
-}
-
-void UPlayerSkillComponent::OnRegister()
-{
-	Super::OnRegister();
-	
-	if (GetWorld() && GetWorld()->IsGameWorld() && HasAuthority())
-	{
-		// Request skill data to load from client
-	}
 }
