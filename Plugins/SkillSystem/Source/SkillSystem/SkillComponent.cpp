@@ -24,65 +24,60 @@ USkill* USkillComponent::GetSkillOfClass(const TSubclassOf<USkill>& SkillClass)
 	return nullptr;
 }
 
-USkill* USkillComponent::GetSkillOfID(const FName SkillID)
+bool USkillComponent::RegisterSkill(USkill* Skill)
 {
-	for (USkill* Skill : Skills)
-		if (Skill && Skill->SkillID == SkillID)
-			return Skill;
-
-	return nullptr;
-}
-
-bool USkillComponent::HasSkill(const USkill* Skill) const
-{
-	return Skill ? Skills.Contains(Skill) : false;
-}
-
-void USkillComponent::AddSkill(USkill* Skill)
-{
-	if (Skill && !Skills.Contains(Skill))
+	if (Skill && !GetSkillOfClass(Skill->GetClass()))
 	{
 		AddReplicatedSubObject(Skill);
 		Skills.Add(Skill);
 		Skill->SetOwningComponent(this);
+		return true;
 	}
+	return false;
 }
 
-void USkillComponent::RemoveSkill(USkill* Skill)
+bool USkillComponent::DeregisterSkill(USkill* Skill)
 {
 	if (Skills.Remove(Skill))
 	{
 		RemoveReplicatedSubObject(Skill);
 		Skill->SetOwningComponent(nullptr);
+		return true;
 	}
+	return false;
 }
 
-TArray<FSkillData> USkillComponent::GetSkillsToInitialize_Implementation()
+void USkillComponent::ProcessSkillData(const FSkillData& InData)
 {
-	return PresetSkills;
-}
-
-void USkillComponent::InitializeSkills(const TArray<FSkillData>& InSkills)
-{
-	for (int i = 0; i < InSkills.Num(); ++i)
+	USkill* Skill = GetSkillOfClass(InData.SkillClass);
+	if (!Skill)
 	{
-		if (InSkills[i].SkillClass)
-		{
-			USkill* NewSkill = NewObject<USkill>(this, PresetSkills[i].SkillClass);
-			NewSkill->InitializeSkillData(PresetSkills[i]);
-			AddSkill(NewSkill);
-		}
+		// If the skill does not exist, create a new one.
+		Skill = NewObject<USkill>(this, InData.SkillClass);
+		if (!RegisterSkill(Skill)) return;
 	}
+	Skill->UpdateSkillData(InData);
 }
 
-void USkillComponent::ClientInitializeSkills_Implementation()
+TArray<FSkillData> USkillComponent::GetClientSkillData_Implementation()
 {
-	ServerInitializeSkills(GetSkillsToInitialize());
+	return ClientSkillData;
 }
 
-void USkillComponent::ServerInitializeSkills_Implementation(const TArray<FSkillData>& InSkills)
+void USkillComponent::ClientUploadSkillData_Implementation()
 {
-	InitializeSkills(InSkills);
+	ServerDownloadSkillData(GetClientSkillData());
+}
+
+void USkillComponent::ServerDownloadSkillData_Implementation(const TArray<FSkillData>& InDataArray)
+{
+	// Cache the client skill data
+	ClientSkillData = InDataArray;
+	
+	for (int i = 0; i < InDataArray.Num(); ++i)
+	{
+		ProcessSkillData(InDataArray[i]);
+	}
 }
 
 FString USkillComponent::GetOwnerName() const
@@ -100,10 +95,14 @@ FString USkillComponent::GetOwnerNetRoleAsString() const
 void USkillComponent::OnRegister()
 {
 	Super::OnRegister();
-
+	
 	if (GetWorld() && GetWorld()->IsGameWorld() && HasAuthority())
 	{
-		InitializeSkills(PresetSkills);
+		// Initialize the preset skills
+		for (int i = 0; i < PresetSkills.Num(); ++i)
+		{
+			ProcessSkillData(PresetSkills[i]);
+		}
 	}
 }
 

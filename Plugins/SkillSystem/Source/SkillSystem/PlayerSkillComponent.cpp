@@ -7,7 +7,7 @@ void UPlayerSkillComponent::BindSkillToInput(USkill* Skill, const UInputAction* 
 	if (!HasAuthority())
 		return;
 	
-	if (!HasSkill(Skill) || !InputAction)
+	if (!Skills.Contains(Skill) || !InputAction)
 		return;
 
 	const APawn* OwningPawn = GetOwningPawn();

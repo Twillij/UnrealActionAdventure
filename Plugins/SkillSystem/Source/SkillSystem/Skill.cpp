@@ -2,7 +2,7 @@
 #include "SkillGlobals.h"
 #include "Net/UnrealNetwork.h"
 
-void USkill::InitializeSkillData_Implementation(const FSkillData& SkillData)
+void USkill::UpdateSkillData_Implementation(const FSkillData& SkillData)
 {
 	bUnlocked = SkillData.bUnlocked;
 	SkillLevel = SkillData.SkillLevel;

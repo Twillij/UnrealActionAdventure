@@ -14,9 +14,6 @@ class SKILLSYSTEM_API USkill : public UObject
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FName SkillID;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FText SkillName;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -37,7 +34,7 @@ public:
 	void SetOwningComponent(USkillComponent* InSkillComponent) { OwningComponent = InSkillComponent; }
 
 	UFUNCTION(BlueprintNativeEvent, Category = "Skill")
-	void InitializeSkillData(const FSkillData& SkillData);
+	void UpdateSkillData(const FSkillData& SkillData);
 	
 	UFUNCTION(BlueprintNativeEvent, Category = "Skill")
 	void ActivateSkill();

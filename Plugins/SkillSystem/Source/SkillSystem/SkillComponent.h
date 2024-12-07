@@ -14,13 +14,18 @@ class SKILLSYSTEM_API USkillComponent : public UActorComponent
     GENERATED_BODY()
 
 public:
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    bool bAutoLoadPresetSkills = true;
+    // Intended for modifying on the client only, e.g. to load skills from the client's save file.
+    // Will be sent to and processed by the server whenever ClientUploadSkillData() is called.
+    // Afterwards, a copy of the data will be stored on the server for caching purposes only.
+    UPROPERTY(BlueprintReadWrite, Category = "Skill|Network")
+    TArray<FSkillData> ClientSkillData;
     
 protected:
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (EditCondition = "bAutoLoadPresetSkills"))
+    // Skill data used to create the initial array of skills
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
     TArray<FSkillData> PresetSkills;
     
+    // A replicated array of unique skills
     UPROPERTY(Replicated)
     TArray<USkill*> Skills;
 
@@ -32,45 +37,44 @@ public:
 
     UFUNCTION(BlueprintPure, Category = "Component")
     AController* GetOwningController() const;
-    
+
+    // Returns true if the owner has network authority.
     UFUNCTION(BlueprintPure, Category = "Network")
     bool HasAuthority() const { return GetOwnerRole() == ROLE_Authority; }
-    
+
+    // Returns all the registered skills.
     UFUNCTION(BlueprintPure, Category = "Skill")
     TArray<USkill*> GetAllSkills() { return Skills; }
-    
+
+    // Returns a registered skill of the specified class if found, null otherwise.
     UFUNCTION(BlueprintPure, Category = "Skill")
     USkill* GetSkillOfClass(const TSubclassOf<USkill>& SkillClass);
 
-    UFUNCTION(BlueprintPure, Category = "Skill")
-    USkill* GetSkillOfID(const FName SkillID);
+    // Registers a unique skill instance. Returns true if successful.
+    UFUNCTION(BlueprintCallable, Category = "Skill")
+    bool RegisterSkill(USkill* Skill);
 
-    UFUNCTION(BlueprintPure, Category = "Skill")
-    bool HasSkill(const USkill* Skill) const;
+    // De-registers a skill instance. Returns true if successful.
+    UFUNCTION(BlueprintCallable, Category = "Skill")
+    bool DeregisterSkill(USkill* Skill);
+
+    // Processes a skill data and either updates an existing skill or creates a new one.
+    UFUNCTION(BlueprintCallable, Category = "Skill")
+    void ProcessSkillData(const FSkillData& InData);
     
-    UFUNCTION(BlueprintCallable, Category = "Skill")
-    void AddSkill(USkill* Skill);
-
-    UFUNCTION(BlueprintCallable, Category = "Skill")
-    void RemoveSkill(USkill* Skill);
-
-    // Returns a skill data array that is used for initialization.
-    // This function is intended for custom implementation, e.g. to load skills from a save file.
-    UFUNCTION(BlueprintNativeEvent, Category = "Skill")
-    TArray<FSkillData> GetSkillsToInitialize();
-
-    // Creates skill instances based on the provided skill data array and caches within the Skills array.
-    UFUNCTION(BlueprintCallable, Category = "Skill")
-    void InitializeSkills(const TArray<FSkillData>& InSkills);
-
-    // Retrieves skill data from the client and then sends it to the server to initialize.
-    // Must be called from the owning actor on the server.
-    UFUNCTION(Client, Reliable, BlueprintCallable, Category = "Skill")
-    void ClientInitializeSkills();
-
-    // Initializes skills on the server and replicates it to the owning actor.
-    UFUNCTION(Server, Reliable, BlueprintCallable, Category = "Skill")
-    void ServerInitializeSkills(const TArray<FSkillData>& InSkills);
+    // Default implementation returns the ClientSkillData array.
+    // Intended for custom implementation to be called on the client e.g. to load skills from the client's save file.
+    // Called by ClientUploadSkillData() to be sent to the server to process.
+    UFUNCTION(BlueprintNativeEvent, Category = "Skill|Network")
+    TArray<FSkillData> GetClientSkillData();
+    
+    // Sends ClientSourcedSkillData to the server to process.
+    UFUNCTION(Client, Reliable, BlueprintCallable, Category = "Skill|Network")
+    void ClientUploadSkillData();
+    
+    // Processes the provided skill data on the server and replicates any data changes back to the owning client.
+    UFUNCTION(Server, Reliable, BlueprintCallable, Category = "Skill|Network")
+    void ServerDownloadSkillData(const TArray<FSkillData>& InDataArray);
     
     UFUNCTION(BlueprintPure, Category = "Debug")
     FString GetClassName() const { return GetClass()->GetName(); }
