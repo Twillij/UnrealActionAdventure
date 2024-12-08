@@ -42,6 +42,9 @@ public:
     UFUNCTION(BlueprintPure, Category = "Network")
     bool HasAuthority() const { return GetOwnerRole() == ROLE_Authority; }
 
+    UFUNCTION(BlueprintPure, Category = "Network")
+    bool IsLocallyControlled() const;
+
     // Returns all the registered skills.
     UFUNCTION(BlueprintPure, Category = "Skill")
     TArray<USkill*> GetAllSkills() { return Skills; }

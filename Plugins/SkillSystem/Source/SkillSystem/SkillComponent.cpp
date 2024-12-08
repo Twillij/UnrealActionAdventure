@@ -15,6 +15,12 @@ AController* USkillComponent::GetOwningController() const
 	return OwningPawn ? OwningPawn->GetController() : nullptr;
 }
 
+bool USkillComponent::IsLocallyControlled() const
+{
+	const AController* OwningController = GetOwningController();
+	return OwningController && OwningController->IsLocalController();
+}
+
 USkill* USkillComponent::GetSkillOfClass(TSubclassOf<USkill> SkillClass)
 {
 	for (USkill* Skill : Skills)

@@ -4,17 +4,14 @@
 
 void UPlayerSkillComponent::BindSkillToInput(USkill* Skill, const UInputAction* InputAction) const
 {
-	if (!HasAuthority())
-		return;
-	
 	if (!Skills.Contains(Skill) || !InputAction)
 		return;
 
-	const APawn* OwningPawn = GetOwningPawn();
-	if (!OwningPawn)
+	const AController* OwningController = GetOwningController();
+	if (!OwningController || !OwningController->IsLocalPlayerController())
 		return;
 
-	UEnhancedInputComponent* InputComponent = Cast<UEnhancedInputComponent>(OwningPawn->InputComponent);
+	UEnhancedInputComponent* InputComponent = Cast<UEnhancedInputComponent>(OwningController->InputComponent);
 	if (!InputComponent)
 		return;
 
