@@ -17,9 +17,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Info")
 	FText CharacterName;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Skill")
-	USkillComponent* SkillComponent;
-
+	UFUNCTION(BlueprintNativeEvent, BlueprintPure)
+	USkillComponent* GetSkillComponent();
+	USkillComponent* GetSkillComponent_Implementation() { return nullptr; }
+	
 protected:
 	//virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 };

@@ -48,7 +48,7 @@ public:
 
     // Returns a registered skill of the specified class if found, null otherwise.
     UFUNCTION(BlueprintPure, Category = "Skill")
-    USkill* GetSkillOfClass(const TSubclassOf<USkill>& SkillClass);
+    USkill* GetSkillOfClass(TSubclassOf<USkill> SkillClass);
 
     // Registers a unique skill instance. Returns true if successful.
     UFUNCTION(BlueprintCallable, Category = "Skill")

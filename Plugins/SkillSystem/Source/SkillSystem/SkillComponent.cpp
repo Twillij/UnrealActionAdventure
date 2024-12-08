@@ -15,7 +15,7 @@ AController* USkillComponent::GetOwningController() const
 	return OwningPawn ? OwningPawn->GetController() : nullptr;
 }
 
-USkill* USkillComponent::GetSkillOfClass(const TSubclassOf<USkill>& SkillClass)
+USkill* USkillComponent::GetSkillOfClass(TSubclassOf<USkill> SkillClass)
 {
 	for (USkill* Skill : Skills)
 		if (Skill && Skill->GetClass() == SkillClass)

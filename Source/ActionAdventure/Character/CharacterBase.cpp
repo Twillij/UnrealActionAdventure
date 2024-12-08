@@ -27,5 +27,4 @@ ACharacterBase::ACharacterBase()
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 
 	bReplicates = true;
-	SkillComponent = CreateDefaultSubobject<USkillComponent>("SkillComponent");
 }
