@@ -39,6 +39,9 @@ public:
 	UFUNCTION(BlueprintNativeEvent, Category = "Skill")
 	void ActivateSkill();
 	virtual void ActivateSkill_Implementation() {}
+
+	UFUNCTION(BlueprintPure, Category = "Debug")
+	FString GetClassName() const { return GetClass()->GetName(); }
 	
 	UFUNCTION(BlueprintPure, Category = "Debug")
 	FString GetLockedStatusAsString() const { return bUnlocked ? "Unlocked" : "Locked"; }
