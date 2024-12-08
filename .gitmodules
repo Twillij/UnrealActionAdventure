@@ -1,3 +1,6 @@
 [submodule "Plugins/UnrealMultiplayer"]
 	path = Plugins/UnrealMultiplayer
 	url = git@github.com:Twillij/UnrealMultiplayer.git
+[submodule "Plugins/SkillSystem"]
+	path = Plugins/SkillSystem
+	url = https://github.com/Twillij/UnrealSkillSystemPlugin.git
