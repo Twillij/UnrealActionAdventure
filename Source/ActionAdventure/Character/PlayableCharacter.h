@@ -3,11 +3,16 @@
 #include "CharacterBase.h"
 #include "PlayableCharacter.generated.h"
 
+// Component types
 class UCameraComponent;
-class UInputMappingContext;
-class UInputAction;
 class USpringArmComponent;
+
+// Input types
+class UInputAction;
+class UInputMappingContext;
 struct FInputActionValue;
+
+class USkill;
 
 UCLASS()
 class ACTIONADVENTURE_API APlayableCharacter : public ACharacterBase
@@ -24,24 +29,31 @@ public:
 	UCameraComponent* FollowCamera;
 
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-	UInputMappingContext* DefaultMappingContext;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	UInputMappingContext* InputMappingContext;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-	TObjectPtr<const UInputAction> TestAction;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	UInputAction* JumpAction;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	UInputAction* MoveAction;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	UInputAction* LookAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	UInputAction* SkillAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	TSubclassOf<USkill> SkillClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	TMap<UInputAction*, TSubclassOf<USkill>> InputSkills;
+	
+public:
+	void Move(const FInputActionValue& Value);
+	void Look(const FInputActionValue& Value);
 
 protected:
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
-
-	void Move(const FInputActionValue& Value);
-	void Look(const FInputActionValue& Value);
 };

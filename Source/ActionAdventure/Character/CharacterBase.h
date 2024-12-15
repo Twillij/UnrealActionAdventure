@@ -20,7 +20,4 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintPure)
 	USkillComponent* GetSkillComponent();
 	USkillComponent* GetSkillComponent_Implementation() { return nullptr; }
-	
-protected:
-	//virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 };

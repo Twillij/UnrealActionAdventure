@@ -1,9 +1,11 @@
 ﻿#include "PlayableCharacter.h"
 #include "SkillSystem/SkillComponent.h"
+#include "SkillSystem/SkillFunctionLibrary.h"
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputMappingContext.h"
+
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 
@@ -19,48 +21,6 @@ APlayableCharacter::APlayableCharacter()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
-}
-
-void APlayableCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-	
-	// Add input mapping context
-	if (const APlayerController* PlayerController = Cast<APlayerController>(Controller))
-	{
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
-		{
-			Subsystem->AddMappingContext(DefaultMappingContext, 0);
-		}
-	}
-
-	TArray<FEnhancedActionKeyMapping> InputMappings = DefaultMappingContext->GetMappings();
-	for (FEnhancedActionKeyMapping InputMapping : InputMappings)
-	{
-		FName MappingName = InputMapping.GetMappingName();
-
-		if (MappingName == "IA_Move")
-		{
-			
-		}
-	}
-	
-	// Set up action bindings
-	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent)) {
-		
-		// Jumping
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ACharacter::Jump);
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
-
-		// Moving
-		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APlayableCharacter::Move);
-
-		// Looking
-		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APlayableCharacter::Look);
-	}
-	
-	//SkillComponent->BindSkillToInput(SkillComponent->GetSkillOfID("Test"), TestAction.Get());
-	//UE_LOG(LogTemp, Warning, TEXT("Set up input"));
 }
 
 void APlayableCharacter::Move(const FInputActionValue& Value)
@@ -97,4 +57,30 @@ void APlayableCharacter::Look(const FInputActionValue& Value)
 	// Add yaw and pitch input to controller
 	AddControllerYawInput(LookAxisVector.X);
 	AddControllerPitchInput(LookAxisVector.Y);
+}
+
+void APlayableCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+	const APlayerController* PlayerController = GetLocalViewingPlayerController();
+	const ULocalPlayer* LocalPlayer = PlayerController ? PlayerController->GetLocalPlayer() : nullptr;
+	if (!PlayerController || !LocalPlayer)
+		return;
+	
+	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer))
+	{
+		Subsystem->AddMappingContext(InputMappingContext, 0);
+	}
+	
+	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent))
+	{
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &APlayableCharacter::Jump);
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &APlayableCharacter::StopJumping);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APlayableCharacter::Move);
+		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APlayableCharacter::Look);
+		
+		USkill* Skill = GetSkillComponent()->GetSkillOfClass(SkillClass);
+		USkillFunctionLibrary::BindSkillToEnhancedInput(PlayerController, SkillAction, ETriggerEvent::Started, Skill);
+	}
 }
