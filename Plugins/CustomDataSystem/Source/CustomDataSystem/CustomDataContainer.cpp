@@ -26,7 +26,7 @@ bool FCustomDataContainer::GetBoolData() const
 
 double FCustomDataContainer::GetNumData() const
 {
-	double OutNum;
+	double OutNum = 0;
 	
 	if (DataType == ECustomDataType::Number)
 		FDefaultValueHelper::ParseDouble(RawData, OutNum);
