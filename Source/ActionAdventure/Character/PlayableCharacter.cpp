@@ -80,7 +80,9 @@ void APlayableCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APlayableCharacter::Move);
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APlayableCharacter::Look);
 		
-		USkill* Skill = GetSkillComponent()->GetSkillOfClass(SkillClass);
-		USkillFunctionLibrary::BindSkillToEnhancedInput(PlayerController, SkillAction, ETriggerEvent::Started, Skill);
+		if (USkillComponent* SkillComponent = GetSkillComponent())
+		{
+			SkillComponent->BindSkillToEnhancedInput(SkillClass, SkillAction, ETriggerEvent::Started);
+		}
 	}
 }
