@@ -82,6 +82,7 @@ void APlayableCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 		
 		if (USkillComponent* SkillComponent = GetSkillComponent())
 		{
+			const TSubclassOf<USkill> SkillClass = SkillComponent->GetOwnedSkills()[0]->GetClass();
 			SkillComponent->BindSkillToEnhancedInput(SkillClass, SkillAction, ETriggerEvent::Started);
 		}
 	}

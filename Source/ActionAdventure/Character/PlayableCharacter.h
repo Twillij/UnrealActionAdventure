@@ -45,9 +45,6 @@ protected:
 	UInputAction* SkillAction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-	TSubclassOf<USkill> SkillClass;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	TMap<UInputAction*, TSubclassOf<USkill>> InputSkills;
 	
 public:
